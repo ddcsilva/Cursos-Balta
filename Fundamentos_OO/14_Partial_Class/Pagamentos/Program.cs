@@ -1,6 +1,6 @@
 ﻿using Pagamentos;
 
-System.Console.WriteLine("Hello World!");
+System.Console.WriteLine("Hello World");
 
 var pagamento = new Pagamento();
 pagamento.PropriedadeA = 123;
