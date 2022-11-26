@@ -6,5 +6,8 @@ class Pagamento
     DateTime Vencimento;
 
     // Métodos
-    void Pagar() {}
+    void Pagar() 
+    {
+        
+    }
 }
