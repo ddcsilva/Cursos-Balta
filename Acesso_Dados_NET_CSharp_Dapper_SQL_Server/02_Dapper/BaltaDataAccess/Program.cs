@@ -12,7 +12,16 @@ namespace BaltaDataAccess
             const string connectionString = "Server=localhost,1433;Database=balta;User ID=sa;Password=Ra170115!";
 
             var category = new Category();
-            var insertSql = "INSERT INTO [Category] VALUES(id, title, url, summary, order, description, featured)";
+            category.Id = Guid.NewGuid();
+            category.Title = "Amazon AWS";
+            category.Url = "amazon";
+            category.Description = "Categoria destinada a serviços do AWS";
+            category.Order = 8;
+            category.Summary = "AWS Cloud";
+            category.Featured = false;
+
+            var insertSql = @"INSERT INTO [Category] 
+                VALUES(id, title, url, summary, order, description, featured)";
 
             using (var connection = new SqlConnection(connectionString))
             {
