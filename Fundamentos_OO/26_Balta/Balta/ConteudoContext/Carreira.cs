@@ -2,6 +2,12 @@ namespace Balta.ConteudoContext
 {
     public class Carreira : Conteudo
     {
-        public int Cursos { get; set; }
+        public Carreira()
+        {
+            this.Itens = new List<ItemCarreira>();
+        }
+
+        public IList<ItemCarreira> Itens { get; set; }
+        public int TotalCursos => Itens.Count; // Expression Body
     }
 }
