@@ -2,7 +2,8 @@ namespace Balta.ConteudoContext
 {
     public class Carreira : Conteudo
     {
-        public Carreira()
+        public Carreira(string titulo, string url)
+            : base(titulo, url)
         {
             this.Itens = new List<ItemCarreira>();
         }
