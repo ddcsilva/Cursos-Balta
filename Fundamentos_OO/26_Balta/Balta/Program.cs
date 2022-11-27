@@ -1,13 +1,44 @@
-﻿using Balta.ConteudoContext;
+﻿using System.Linq;
+using Balta.ConteudoContext;
 
 var artigos = new List<Artigo>();
 artigos.Add(new Artigo("Artigo sobre OOP", "orientacao-objetos"));
 artigos.Add(new Artigo("Artigo sobre C#", "csharp"));
 artigos.Add(new Artigo("Artigo sobre .NET", "dotnet"));
 
-foreach (var artigo in artigos)
+// foreach (var artigo in artigos)
+// {
+//     Console.WriteLine(artigo.Id);
+//     Console.WriteLine(artigo.Titulo);
+//     Console.WriteLine(artigo.Url);
+// }
+
+var cursos = new List<Curso>();
+var cursoOOP = new Curso("Fundamentos OOP", "fundamentos-oop");
+var cursoCSharp = new Curso("Fundamentos C#", "fundamentos-csharp");
+var cursoAspNet = new Curso("Fundamentos ASP.NET", "fundamentos-aspnet");
+
+cursos.Add(cursoOOP);
+cursos.Add(cursoCSharp);
+cursos.Add(cursoAspNet);
+
+var carreiras = new List<Carreira>();
+var carreiraDotNet = new Carreira("Especialista .NET", "especialista-dotnet");
+var itemCarreira2 = new ItemCarreira(2, "Aprenda .NET", "", null);
+var itemCarreira = new ItemCarreira(1, "Comece por aqui", "", null);
+var itemCarreira3 = new ItemCarreira(3, "Aprenda OOP", "", null);
+carreiraDotNet.Itens.Add(itemCarreira2);
+carreiraDotNet.Itens.Add(itemCarreira);
+carreiraDotNet.Itens.Add(itemCarreira3);
+
+carreiras.Add(carreiraDotNet);
+
+foreach (var carreira in carreiras)
 {
-    Console.WriteLine(artigo.Id);
-    Console.WriteLine(artigo.Titulo);
-    Console.WriteLine(artigo.Url);
+    Console.WriteLine(carreira.Titulo);
+
+    foreach (var item in carreira.Itens.OrderBy(x => x.Ordem))
+    {
+        Console.WriteLine($"{item.Ordem} - {item.Titulo}");
+    }
 }
