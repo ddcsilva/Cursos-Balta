@@ -24,9 +24,9 @@ cursos.Add(cursoAspNet);
 
 var carreiras = new List<Carreira>();
 var carreiraDotNet = new Carreira("Especialista .NET", "especialista-dotnet");
-var itemCarreira2 = new ItemCarreira(2, "Aprenda .NET", "", null);
-var itemCarreira = new ItemCarreira(1, "Comece por aqui", "", null);
-var itemCarreira3 = new ItemCarreira(3, "Aprenda OOP", "", null);
+var itemCarreira2 = new ItemCarreira(2, "Aprenda .NET", "", cursoOOP);
+var itemCarreira = new ItemCarreira(1, "Comece por aqui", "", cursoCSharp);
+var itemCarreira3 = new ItemCarreira(3, "Aprenda OOP", "", cursoAspNet);
 carreiraDotNet.Itens.Add(itemCarreira2);
 carreiraDotNet.Itens.Add(itemCarreira);
 carreiraDotNet.Itens.Add(itemCarreira3);
@@ -40,5 +40,7 @@ foreach (var carreira in carreiras)
     foreach (var item in carreira.Itens.OrderBy(x => x.Ordem))
     {
         Console.WriteLine($"{item.Ordem} - {item.Titulo}");
+        Console.WriteLine(item.Curso.Titulo);
+        Console.WriteLine(item.Curso.Nivel);
     }
 }

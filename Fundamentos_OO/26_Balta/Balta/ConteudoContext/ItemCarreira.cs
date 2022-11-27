@@ -4,6 +4,9 @@ namespace Balta.ConteudoContext
     {
         public ItemCarreira(int ordem, string titulo, string descricao, Curso curso)
         {
+            if (curso == null)
+                throw new Exception("O curso não pode ser nulo");
+
             this.Ordem = ordem;
             this.Titulo = titulo;
             this.Descricao = descricao;
