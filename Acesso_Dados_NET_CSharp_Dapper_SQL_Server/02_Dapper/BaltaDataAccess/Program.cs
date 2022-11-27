@@ -11,6 +11,25 @@ namespace BaltaDataAccess
         {
             const string connectionString = "Server=localhost,1433;Database=balta;User ID=sa;Password=Ra170115!";
 
+            using (var connection = new SqlConnection(connectionString))
+            {
+                UpdateCategory(connection);
+                ListCategories(connection);
+                //CreateCategory(connection);
+            }
+        }
+
+        static void ListCategories(SqlConnection connection)
+        {
+            var categories = connection.Query<Category>("SELECT [Id], [Title] FROM [Category]");
+            foreach (var item in categories)
+            {
+                Console.WriteLine($"{item.Id} - {item.Title}");
+            }
+        }
+
+        static void CreateCategory(SqlConnection connection)
+        {
             var category = new Category();
             category.Id = Guid.NewGuid();
             category.Title = "Amazon AWS";
@@ -23,28 +42,30 @@ namespace BaltaDataAccess
             var insertSql = @"INSERT INTO [Category] 
                 VALUES(@Id, @Title, @Url, @Summary, @Order, @Description, @Featured)";
 
-            using (var connection = new SqlConnection(connectionString))
+            var rows = connection.Execute(insertSql, new
             {
-                var rows = connection.Execute(insertSql, new
-                {
-                    category.Id,
-                    category.Title,
-                    category.Url,
-                    category.Summary,
-                    category.Order,
-                    category.Description,
-                    category.Featured
-                });
+                category.Id,
+                category.Title,
+                category.Url,
+                category.Summary,
+                category.Order,
+                category.Description,
+                category.Featured
+            });
 
-                System.Console.WriteLine($"{rows} linhas inseridas!");
+            System.Console.WriteLine($"{rows} linhas inseridas!");
+        }
 
-                var categories = connection.Query<Category>("SELECT [Id], [Title] FROM [Category]");
+        static void UpdateCategory(SqlConnection connection)
+        {
+            var updateQuery = "UPDATE [Category] SET [Title]=@title WHERE [Id]=@id";
+            var rows = connection.Execute(updateQuery, new
+            {
+                id = new Guid("10360548-b7f9-44ce-b671-3a3ecf699bae"),
+                title = "Frontend 2022"
+            });
 
-                foreach (var item in categories)
-                {
-                    Console.WriteLine($"{item.Id} - {item.Title}");
-                }
-            }
+            Console.WriteLine($"{rows} linhas atualizadas");
         }
     }
 }
