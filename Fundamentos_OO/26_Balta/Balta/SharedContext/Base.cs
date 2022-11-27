@@ -1,6 +1,6 @@
 using Balta.NotifacaoContext;
 
-namespace Balta.ConteudoContext
+namespace Balta.SharedContext
 {
     public abstract class Base : Notificavel
     {

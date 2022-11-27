@@ -1,3 +1,5 @@
+using Balta.SharedContext;
+
 namespace Balta.ConteudoContext
 {
     // Conteúdo não deve ser instânciado
