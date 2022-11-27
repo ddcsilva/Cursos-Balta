@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Data.SqlClient;
 
 namespace BaltaDataAccess
 {
@@ -7,8 +8,11 @@ namespace BaltaDataAccess
         static void Main(string[] args)
         {
             const string connectionString = "Server=localhost,1433;Database=balta;User ID=sa;Password=Ra170115!";
-            // Microsoft.Data.SqlClient
-            Console.WriteLine("Hello World!");
+
+            using (var connection = new SqlConnection())
+            {
+                Console.WriteLine("Conectado!");
+            }
         }
     }
 }
