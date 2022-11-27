@@ -1,6 +1,6 @@
 namespace Balta.ConteudoContext
 {
-    public class ItemCarreira
+    public class ItemCarreira : Base
     {
         public ItemCarreira(int ordem, string titulo, string descricao, Curso curso)
         {
