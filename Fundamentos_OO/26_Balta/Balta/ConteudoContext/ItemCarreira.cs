@@ -1,3 +1,5 @@
+using Balta.NotifacaoContext;
+
 namespace Balta.ConteudoContext
 {
     public class ItemCarreira : Base
@@ -5,7 +7,7 @@ namespace Balta.ConteudoContext
         public ItemCarreira(int ordem, string titulo, string descricao, Curso curso)
         {
             if (curso == null)
-                throw new Exception("O curso não pode ser nulo");
+                AdicionaNotificacao(new Notificacao("Curso", "Curso Inválido"));
 
             this.Ordem = ordem;
             this.Titulo = titulo;
