@@ -1,5 +1,7 @@
-﻿using System.Linq;
-using Balta.ConteudoContext;
+﻿using Balta.ConteudoContext;
+
+// https://github.com/andrebaltieri/Flunt/
+// dotnet add package flunt
 
 var artigos = new List<Artigo>();
 artigos.Add(new Artigo("Artigo sobre OOP", "orientacao-objetos"));
