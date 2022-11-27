@@ -1,4 +1,5 @@
-﻿using Balta.ConteudoContext;
+﻿using Balta.AssinaturaContext;
+using Balta.ConteudoContext;
 
 // https://github.com/andrebaltieri/Flunt/
 // dotnet add package flunt
@@ -50,4 +51,8 @@ foreach (var carreira in carreiras)
             Console.WriteLine($"{notificacao.Propriedade} - {notificacao.Mensagem}");
         }
     }
+    var assinaturaPayPal = new AssinaturaPayPal();
+    var aluno = new Aluno();
+
+    aluno.CriarAssinatura(assinaturaPayPal);
 }
