@@ -21,10 +21,23 @@ namespace BaltaDataAccess
             category.Featured = false;
 
             var insertSql = @"INSERT INTO [Category] 
-                VALUES(id, title, url, summary, order, description, featured)";
+                VALUES(@Id, @Title, @Url, @Summary, @Order, @Description, @Featured)";
 
             using (var connection = new SqlConnection(connectionString))
             {
+                var rows = connection.Execute(insertSql, new
+                {
+                    category.Id,
+                    category.Title,
+                    category.Url,
+                    category.Summary,
+                    category.Order,
+                    category.Description,
+                    category.Featured
+                });
+
+                System.Console.WriteLine($"{rows} linhas inseridas!");
+
                 var categories = connection.Query<Category>("SELECT [Id], [Title] FROM [Category]");
 
                 foreach (var item in categories)
