@@ -10,3 +10,11 @@ VALUES (
     'Um mero desenvolvedor',
     'https://',
     'danilo-silva')
+GO
+
+INSERT INTO 
+    [Role]
+VALUES (
+    'Autor',
+    'autor')
+GO
