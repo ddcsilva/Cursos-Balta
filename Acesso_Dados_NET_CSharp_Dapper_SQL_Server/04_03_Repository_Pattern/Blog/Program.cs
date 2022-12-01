@@ -12,16 +12,19 @@ namespace Blog
 
         static void Main(string[] args)
         {
-            // LerUsuarios();
+            var connection = new SqlConnection(CONNECTION_STRING);
+            connection.Open();
+            LerUsuarios(connection);
             // LerUsuario(1);
             // CriarUsuario();
             // AtualizarUsuario(2);
             // ExcluirUsuario(2);
+            connection.Close();
         }
 
-        public static void LerUsuarios()
+        public static void LerUsuarios(SqlConnection connection)
         {
-            var repository = new UsuarioRepository();
+            var repository = new UsuarioRepository(connection);
             var usuarios = repository.GetAll();
 
             foreach (var usuario in usuarios)
@@ -54,8 +57,6 @@ namespace Blog
                 var linhasAfetadas = conexao.Insert<Usuario>(usuario);
                 Console.WriteLine("Cadastro realizado com sucesso!");
             }
-
-            LerUsuarios();
         }
 
         public static void AtualizarUsuario(int id)
@@ -76,8 +77,6 @@ namespace Blog
                 var linhasAfetadas = conexao.Update<Usuario>(usuario);
                 Console.WriteLine("Atualização realizada com sucesso!");
             }
-
-            LerUsuarios();
         }
 
         public static void ExcluirUsuario(int id)
@@ -88,8 +87,6 @@ namespace Blog
                 conexao.Delete<Usuario>(usuario);
                 Console.WriteLine("Exclusão realizada com sucesso!");
             }
-
-            LerUsuarios();
         }
     }
 }
