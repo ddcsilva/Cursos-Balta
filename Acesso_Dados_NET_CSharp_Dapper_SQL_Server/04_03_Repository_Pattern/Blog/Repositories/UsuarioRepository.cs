@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Balta.Models;
 using Dapper.Contrib.Extensions;
@@ -8,12 +7,15 @@ namespace Blog.Repositories
 {
     public class UsuarioRepository
     {
+        private SqlConnection _connection = new SqlConnection();
+
         public IEnumerable<Usuario> GetAll()
-        {
-            using (var conexao = new SqlConnection(CONNECTION_STRING))
-            {
-                return conexao.GetAll<Usuario>();
-            }
-        }
+            => _connection.GetAll<Usuario>();
+
+        public Usuario Get(int id)
+            => _connection.Get<Usuario>(id);
+
+        public void Create(Usuario usuario)
+            => _connection.Insert<Usuario>(usuario);
     }
 }
