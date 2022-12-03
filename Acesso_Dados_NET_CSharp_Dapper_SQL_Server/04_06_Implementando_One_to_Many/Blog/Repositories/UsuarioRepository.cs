@@ -17,32 +17,34 @@ namespace Blog.Repositories
         {
             var query = @"
                 SELECT
-                    [User].*,
+                    [Usuario].*,
                     [Role].*
                 FROM
-                    [User]
-                    LEFT JOIN [UserRole] ON [UserRole].[UserId] = [User].[Id]
-                    LEFT JOIN [Role] ON [UserRole].[RoleId] = [Role].[Id]";
+                    [Usuario]
+                    LEFT JOIN [UsuarioRole] ON [UsuarioRole].[UsuarioId] = [Usuario].[Id]
+                    LEFT JOIN [Role] ON [UsuarioRole].[RoleId] = [Role].[Id]";
 
             var usuarios = new List<Usuario>();
 
             var items = _connection.Query<Usuario, Role, Usuario>(
                 query,
-                (user, role) =>
+                (usuario, role) =>
                 {
-                    var usuario = usuarios.FirstOrDefault(x => x.Id == user.Id);
-                    if (usuario == null)
+                    var usr = usuarios.FirstOrDefault(x => x.Id == usuario.Id);
+                    if (usr == null)
                     {
-                        usuario = user;
-                        usuario.Roles.Add(role);
+                        usr = usuario;
+                        if (role != null)
+                            usr.Roles.Add(role);
+
                         usuarios.Add(usuario);
                     }
                     else
                     {
-                        usuario.Roles.Add(role);
+                        usr.Roles.Add(role);
                     }
 
-                    return user;
+                    return usuario;
                 }, splitOn: "Id");
             return usuarios;
         }
