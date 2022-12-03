@@ -1,5 +1,5 @@
 ﻿using System;
-using Balta.Models;
+using Blog.Models;
 using Blog.Repositories;
 using Microsoft.Data.SqlClient;
 
@@ -15,6 +15,7 @@ namespace Blog
             connection.Open();
             GetAllUsuarios(connection);
             GetAllRoles(connection);
+            GetAllTags(connection);
             // LerUsuario(1);
             // CriarUsuario();
             // AtualizarUsuario(2);
@@ -33,11 +34,20 @@ namespace Blog
 
         public static void GetAllRoles(SqlConnection connection)
         {
-            var repository = new RoleRepository(connection);
+            var repository = new Repository<Role>(connection);
             var roles = repository.GetAll();
 
             foreach (var role in roles)
                 Console.WriteLine(role.Nome);
+        }
+
+        public static void GetAllTags(SqlConnection connection)
+        {
+            var repository = new Repository<Tag>(connection);
+            var tags = repository.GetAll();
+
+            foreach (var tag in tags)
+                Console.WriteLine(tag.Nome);
         }
     }
 }
