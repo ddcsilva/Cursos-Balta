@@ -13,7 +13,8 @@ namespace Blog
         {
             var connection = new SqlConnection(CONNECTION_STRING);
             connection.Open();
-            GetAllUsuarios(connection);
+            // GetAllUsuarios(connection);
+            GetlAllUsuariosWithRoles(connection);
             // GetAllRoles(connection);
             // GetAllTags(connection);
             // CriarUsuario(connection);
@@ -72,6 +73,18 @@ namespace Blog
 
             foreach (var tag in tags)
                 Console.WriteLine(tag.Nome);
+        }
+
+        private static void GetlAllUsuariosWithRoles(SqlConnection connection)
+        {
+            var repository = new UsuarioRepository(connection);
+            var usuarios = repository.GetAllWithRoles();
+
+            foreach (var usuario in usuarios)
+            {
+                Console.WriteLine(usuario.Email);
+                foreach (var role in usuario.Roles) Console.WriteLine($" - {role.Slug}");
+            }
         }
     }
 }
