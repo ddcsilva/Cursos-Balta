@@ -18,3 +18,17 @@ VALUES (
     'Autor',
     'autor')
 GO
+
+INSERT INTO 
+    [Tag]
+VALUES (
+    'ASP.NET',
+    'aspnet')
+GO
+
+INSERT INTO 
+    [UsuarioRole]
+VALUES (
+    1,
+    1)
+GO
