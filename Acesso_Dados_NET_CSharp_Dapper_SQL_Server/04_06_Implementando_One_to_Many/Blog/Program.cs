@@ -16,11 +16,28 @@ namespace Blog
             GetAllUsuarios(connection);
             // GetAllRoles(connection);
             // GetAllTags(connection);
+            // CriarUsuario(connection);
             // LerUsuario(1);
             // CriarUsuario();
             // AtualizarUsuario(2);
             // ExcluirUsuario(2);
             connection.Close();
+        }
+
+        private static void CriarUsuario(SqlConnection connection)
+        {
+            var usuario = new Usuario
+            {
+                Biografia = "biografia",
+                Email = "email@teste.com",
+                Imagem = "imagem",
+                Nome = "nome",
+                Slug = "slug",
+                Senha = "hash"
+            };
+
+            var repository = new Repository<Usuario>(connection);
+            repository.Create(usuario);
         }
 
         public static void GetAllUsuarios(SqlConnection connection)
