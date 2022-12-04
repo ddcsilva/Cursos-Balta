@@ -20,6 +20,24 @@ namespace Blog.Telas.TelasTag
                 Console.WriteLine();
 
                 var opcao = short.Parse(Console.ReadLine());
+                switch (opcao)
+                {
+                    case 1:
+                        TelaListTag.Carregar();
+                        break;
+                    case 2:
+                        TelaCreateTag.Carregar();
+                        break;
+                    case 3:
+                        TelaUpdateTag.Carregar();
+                        break;
+                    case 4:
+                        TelaDeleteTag.Carregar();
+                        break;
+                    default:
+                        Carregar();
+                        break;
+                }
             }
         }
     }
