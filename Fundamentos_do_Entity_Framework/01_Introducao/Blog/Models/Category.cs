@@ -1,5 +1,6 @@
 namespace Blog.Models
 {
+    // Representação da tabela Category do BD
     public class Category
     {
         public int Id { get; set; }

@@ -2,6 +2,7 @@ using System;
 
 namespace Blog.Models
 {
+    // Representação da tabela Post do BD
     public class Post
     {
         public int Id { get; set; }
