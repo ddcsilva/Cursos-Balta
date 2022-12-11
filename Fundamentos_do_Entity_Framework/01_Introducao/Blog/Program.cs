@@ -51,9 +51,7 @@ namespace Blog
                     .ToList(); /* Força a execução no banco (Sempre no final) */
 
                 foreach (var tag in tags)
-                {
                     Console.WriteLine(tag.Name);
-                }
             }
         }
     }
