@@ -22,16 +22,24 @@ namespace Blog
 
                 /* Update */
                 /* Busca o item no Banco de Dados */
-                var tag = context.Tags.FirstOrDefault(x => x.Id == 1);
+                // var tag = context.Tags.FirstOrDefault(x => x.Id == 1);
                 /* Defini os dados a serem atualizados */
-                tag.Name = ".NET";
-                tag.Slug = "dotnet";
+                // tag.Name = ".NET";
+                // tag.Slug = "dotnet";
                 /* Atualiza na Memória */
-                context.Update(tag);
+                // context.Update(tag);
                 /* Persiste no Banco de Dados */
-                context.SaveChanges();
+                // context.SaveChanges();
 
                 /* ----------------------- */
+
+                /* Delete */
+                /* Busca o item no Banco de Dados */
+                var tag = context.Tags.FirstOrDefault(x => x.Id == 1);
+                /* Exclui na Memória */
+                context.Remove(tag);
+                /* Persiste no Banco de Dados */
+                context.SaveChanges();
             }
         }
     }
