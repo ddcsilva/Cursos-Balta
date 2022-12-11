@@ -20,7 +20,7 @@ namespace Blog.Models
         [Required]
         [MinLength(3)]
         [MaxLength(80)]
-        [Column("Name", TypeName = "VARCHAR")]
+        [Column("Slug", TypeName = "VARCHAR")]
         public string Slug { get; set; }
     }
 }
