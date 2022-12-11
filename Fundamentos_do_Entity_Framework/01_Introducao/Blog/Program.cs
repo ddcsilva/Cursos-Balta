@@ -1,4 +1,5 @@
-﻿using Blog.Data;
+﻿using System.Linq;
+using Blog.Data;
 using Blog.Models;
 
 namespace Blog
@@ -9,11 +10,28 @@ namespace Blog
         {
             using (var context = new BlogDataContext())
             {
-                var tag = new Tag { Name = ".NET", Slug = "aspnet" };
-                // Salva na Memória
-                context.Tags.Add(tag);
-                // Persiste no Banco de Dados
+                /* Create - NO TRACKING */
+                /* Defini os novos dados a serem persistidos */
+                // var tag = new Tag { Name = ".NET", Slug = "aspnet" };
+                /* Salva na Memória */
+                // context.Tags.Add(tag);
+                /* Persiste no Banco de Dados */
+                // context.SaveChanges();
+
+                /* ----------------------- */
+
+                /* Update */
+                /* Busca o item no Banco de Dados */
+                var tag = context.Tags.FirstOrDefault(x => x.Id == 1);
+                /* Defini os dados a serem atualizados */
+                tag.Name = ".NET";
+                tag.Slug = "dotnet";
+                /* Atualiza na Memória */
+                context.Update(tag);
+                /* Persiste no Banco de Dados */
                 context.SaveChanges();
+
+                /* ----------------------- */
             }
         }
     }
