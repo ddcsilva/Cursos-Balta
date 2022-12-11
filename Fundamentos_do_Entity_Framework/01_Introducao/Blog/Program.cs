@@ -2,6 +2,7 @@
 using System.Linq;
 using Blog.Data;
 using Blog.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog
 {
@@ -46,6 +47,7 @@ namespace Blog
 
                 var tags = context
                     .Tags /* Só até aqui não executa no banco */
+                    .AsNoTracking() /* Desabilita os Metadados (Usado só em Delete e Update) */
                     .ToList(); /* Força a execução no banco (Sempre no final) */
 
                 foreach (var tag in tags)
