@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Blog.Data;
 using Blog.Models;
 
@@ -13,8 +14,10 @@ namespace Blog
                 /* Create - NO TRACKING */
                 /* Defini os novos dados a serem persistidos */
                 // var tag = new Tag { Name = ".NET", Slug = "aspnet" };
+                // var tag2 = new Tag { Name = ".NET Core", Slug = "aspnet-core" };
                 /* Salva na Memória */
                 // context.Tags.Add(tag);
+                // context.Tags.Add(tag2);
                 /* Persiste no Banco de Dados */
                 // context.SaveChanges();
 
@@ -35,11 +38,20 @@ namespace Blog
 
                 /* Delete */
                 /* Busca o item no Banco de Dados */
-                var tag = context.Tags.FirstOrDefault(x => x.Id == 1);
+                // var tag = context.Tags.FirstOrDefault(x => x.Id == 1);
                 /* Exclui na Memória */
-                context.Remove(tag);
+                // context.Remove(tag);
                 /* Persiste no Banco de Dados */
-                context.SaveChanges();
+                // context.SaveChanges();
+
+                var tags = context
+                    .Tags /* Só até aqui não executa no banco */
+                    .ToList(); /* Força a execução no banco (Sempre no final) */
+
+                foreach (var tag in tags)
+                {
+                    Console.WriteLine(tag.Name);
+                }
             }
         }
     }
