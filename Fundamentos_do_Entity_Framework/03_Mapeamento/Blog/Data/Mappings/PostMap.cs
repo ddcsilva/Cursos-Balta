@@ -49,19 +49,20 @@ namespace Blog.Data.Mappings
             builder
                 .HasMany(x => x.Tags)
                 .WithMany(x => x.Posts)
-                .UsingEntity<Dictionary<string, string>>(
+                .UsingEntity<Dictionary<string, object>>(
                     "PostTag",
-                    post => post.HasOne<Tag>()
+                    post => post
+                        .HasOne<Tag>()
                         .WithMany()
                         .HasForeignKey("PostId")
-                        .HasConstraintName("FK_PostTag_PostId")
+                        .HasConstraintName("FK_PostRole_PostId")
                         .OnDelete(DeleteBehavior.Cascade),
-                    tag => tag.HasOne<Post>()
+                    tag => tag
+                        .HasOne<Post>()
                         .WithMany()
                         .HasForeignKey("TagId")
                         .HasConstraintName("FK_PostTag_TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                );
+                        .OnDelete(DeleteBehavior.Cascade));
         }
     }
 }
