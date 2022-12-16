@@ -13,4 +13,15 @@ app.MapGet("/name/{nome}", (string nome) =>
 
 app.MapGet("/banana", () => "Banana é muito bom!");
 
+app.MapPost("/", (User user) =>
+{
+    return Results.Ok(user);
+});
+
 app.Run(); // Vamos colocar pra executar
+
+public class User
+{
+    public int Id { get; set; }
+    public string Username { get; set; }
+}
