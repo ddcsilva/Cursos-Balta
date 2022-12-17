@@ -5,7 +5,7 @@ namespace Todo.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("/")]
         public string Get()
         {
             return "Hello World!";
