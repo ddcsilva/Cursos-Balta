@@ -29,10 +29,23 @@ namespace Blog.Controllers
         [HttpPost("v1/categorias")]
         public async Task<IActionResult> Postsync([FromBody] Categoria model, [FromServices] BlogDataContext context)
         {
-            await context.Categorias.AddAsync(model);
-            await context.SaveChangesAsync();
+            try
+            {
+                await context.Categorias.AddAsync(model);
+                await context.SaveChangesAsync();
 
-            return Created($"v1/categorias/{model.Id}", model);
+                return Created($"v1/categorias/{model.Id}", model);
+            }
+            catch (DbUpdateException e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, "05X09 - Não foi possível incluir a categoria!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, "05X10 - Falha interna no servidor!");
+            }
         }
 
         [HttpPut("v1/categorias/{id:int}")]
