@@ -15,12 +15,11 @@ namespace Blog.Controllers
             try
             {
                 var categorias = await context.Categorias.ToListAsync();
-                return Ok(categorias);
+                return Ok(new ResultViewModel<List<Categoria>>(categorias));
             }
-            catch (Exception e)
+            catch
             {
-                Console.WriteLine(e);
-                return StatusCode(500, "05X04 - Falha interna no servidor!");
+                return StatusCode(500, new ResultViewModel<List<Categoria>>("05X04 - Falha interna no servidor!"));
             }
         }
 
@@ -46,6 +45,9 @@ namespace Blog.Controllers
         [HttpPost("v1/categorias")]
         public async Task<IActionResult> Postsync([FromBody] EditorCategoriaViewModel model, [FromServices] BlogDataContext context)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
             try
             {
                 var categoria = new Categoria()
