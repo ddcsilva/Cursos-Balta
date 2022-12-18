@@ -1,4 +1,5 @@
 ﻿using Blog.Data;
+using Blog.Extensions;
 using Blog.Models;
 using Blog.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +46,7 @@ namespace Blog.Controllers
         public async Task<IActionResult> Postsync([FromBody] EditorCategoriaViewModel model, [FromServices] BlogDataContext context)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(new ResultViewModel<Categoria>(ModelState.GetErrors()));
 
             try
             {
@@ -59,17 +60,15 @@ namespace Blog.Controllers
                 await context.Categorias.AddAsync(categoria);
                 await context.SaveChangesAsync();
 
-                return Created($"v1/categorias/{categoria.Id}", model);
+                return Created($"v1/categorias/{categoria.Id}", new ResultViewModel<Categoria>(categoria));
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
-                Console.WriteLine(e);
-                return StatusCode(500, "05X09 - Não foi possível incluir a categoria!");
+                return StatusCode(500, new ResultViewModel<Categoria>("Não foi possível incluir a categoria"));
             }
-            catch (Exception e)
+            catch
             {
-                Console.WriteLine(e);
-                return StatusCode(500, "05X10 - Falha interna no servidor!");
+                return StatusCode(500, new ResultViewModel<Categoria>("Falha interna no servidor"));
             }
         }
 
@@ -81,7 +80,7 @@ namespace Blog.Controllers
                 var categoria = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
 
                 if (categoria == null)
-                    return NotFound();
+                    return NotFound(new ResultViewModel<Categoria>("Conteúdo não encontrado"));
 
                 categoria.Nome = model.Nome;
                 categoria.Slug = model.Slug;
@@ -89,17 +88,15 @@ namespace Blog.Controllers
                 context.Categorias.Update(categoria);
                 await context.SaveChangesAsync();
 
-                return Ok(categoria);
+                return Ok(new ResultViewModel<Categoria>(categoria));
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
-                Console.WriteLine(e);
-                return StatusCode(500, "05X08 - Não foi possível atualizar a categoria!");
+                return StatusCode(500, new ResultViewModel<Categoria>("05XE8 - Não foi possível alterar a categoria"));
             }
-            catch (Exception e)
+            catch
             {
-                Console.WriteLine(e);
-                return StatusCode(500, "05X11 - Falha interna no servidor!");
+                return StatusCode(500, new ResultViewModel<Categoria>("Falha interna no servidor"));
             }
         }
 
@@ -111,22 +108,20 @@ namespace Blog.Controllers
                 var categoria = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
 
                 if (categoria == null)
-                    return NotFound();
+                    return NotFound(new ResultViewModel<Categoria>("Conteúdo não encontrado"));
 
                 context.Categorias.Remove(categoria);
                 await context.SaveChangesAsync();
 
-                return Ok(categoria);
+                return Ok(new ResultViewModel<Categoria>(categoria));
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
-                Console.WriteLine(e);
-                return StatusCode(500, "05X07 - Não foi possível excluir a categoria!");
+                return StatusCode(500, new ResultViewModel<Categoria>("Não foi possível excluir a categoria"));
             }
-            catch (Exception e)
+            catch
             {
-                Console.WriteLine(e);
-                return StatusCode(500, "05X12 - Falha interna no servidor!");
+                return StatusCode(500, new ResultViewModel<Categoria>("Falha interna no servidor"));
             }
         }
     }
