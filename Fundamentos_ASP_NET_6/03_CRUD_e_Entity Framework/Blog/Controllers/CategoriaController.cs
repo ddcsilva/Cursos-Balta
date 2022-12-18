@@ -44,7 +44,7 @@ namespace Blog.Controllers
         }
 
         [HttpPost("v1/categorias")]
-        public async Task<IActionResult> Postsync([FromBody] CreateCategoriaViewModel model, [FromServices] BlogDataContext context)
+        public async Task<IActionResult> Postsync([FromBody] EditorCategoriaViewModel model, [FromServices] BlogDataContext context)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace Blog.Controllers
         }
 
         [HttpPut("v1/categorias/{id:int}")]
-        public async Task<IActionResult> Putsync([FromRoute] int id, [FromBody] Categoria model, [FromServices] BlogDataContext context)
+        public async Task<IActionResult> Putsync([FromRoute] int id, [FromBody] EditorCategoriaViewModel model, [FromServices] BlogDataContext context)
         {
             try
             {
