@@ -11,19 +11,35 @@ namespace Blog.Controllers
         [HttpGet("v1/categorias")]
         public async Task<IActionResult> GetAsync([FromServices] BlogDataContext context)
         {
-            var categorias = await context.Categorias.ToListAsync();
-            return Ok(categorias);
+            try
+            {
+                var categorias = await context.Categorias.ToListAsync();
+                return Ok(categorias);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, "05X04 - Falha interna no servidor!");
+            }
         }
 
         [HttpGet("v1/categorias/{id:int}")]
         public async Task<IActionResult> GetByIdAsync([FromRoute] int id, [FromServices] BlogDataContext context)
         {
-            var categoria = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
+            try
+            {
+                var categoria = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
 
-            if (categoria == null)
-                return NotFound();
+                if (categoria == null)
+                    return NotFound();
 
-            return Ok(categoria);
+                return Ok(categoria);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, "05X05 - Falha interna no servidor!");
+            }
         }
 
         [HttpPost("v1/categorias")]
@@ -51,32 +67,58 @@ namespace Blog.Controllers
         [HttpPut("v1/categorias/{id:int}")]
         public async Task<IActionResult> Putsync([FromRoute] int id, [FromBody] Categoria model, [FromServices] BlogDataContext context)
         {
-            var categoria = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
+            try
+            {
+                var categoria = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
 
-            if (categoria == null)
-                return NotFound();
+                if (categoria == null)
+                    return NotFound();
 
-            categoria.Nome = model.Nome;
-            categoria.Slug = model.Slug;
+                categoria.Nome = model.Nome;
+                categoria.Slug = model.Slug;
 
-            context.Categorias.Update(categoria);
-            await context.SaveChangesAsync();
+                context.Categorias.Update(categoria);
+                await context.SaveChangesAsync();
 
-            return Ok(categoria);
+                return Ok(categoria);
+            }
+            catch (DbUpdateException e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, "05X08 - Não foi possível atualizar a categoria!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, "05X11 - Falha interna no servidor!");
+            }
         }
 
         [HttpDelete("v1/categorias/{id:int}")]
         public async Task<IActionResult> Deletesync([FromRoute] int id, [FromServices] BlogDataContext context)
         {
-            var categoria = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
+            try
+            {
+                var categoria = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
 
-            if (categoria == null)
-                return NotFound();
+                if (categoria == null)
+                    return NotFound();
 
-            context.Categorias.Remove(categoria);
-            await context.SaveChangesAsync();
+                context.Categorias.Remove(categoria);
+                await context.SaveChangesAsync();
 
-            return Ok(categoria);
+                return Ok(categoria);
+            }
+            catch (DbUpdateException e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, "05X07 - Não foi possível excluir a categoria!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(500, "05X12 - Falha interna no servidor!");
+            }
         }
     }
 }
