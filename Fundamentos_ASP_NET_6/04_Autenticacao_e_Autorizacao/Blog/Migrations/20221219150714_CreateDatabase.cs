@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Blog.Migrations
 {
-    public partial class CreateDatebase : Migration
+    public partial class CreateDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,11 +58,11 @@ namespace Blog.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "NVARCHAR(80)", maxLength: 80, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Senha = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Imagem = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "VARCHAR(160)", maxLength: 160, nullable: false),
+                    Senha = table.Column<string>(type: "VARCHAR(255)", maxLength: 255, nullable: false),
+                    Imagem = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Slug = table.Column<string>(type: "VARCHAR(80)", maxLength: 80, nullable: false),
-                    Biografia = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Biografia = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

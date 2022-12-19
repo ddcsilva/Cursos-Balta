@@ -26,10 +26,22 @@ namespace Blog.Data.Mappings
                 .HasColumnType("NVARCHAR")
                 .HasMaxLength(80);
 
-            builder.Property(x => x.Biografia);
-            builder.Property(x => x.Email);
-            builder.Property(x => x.Imagem);
-            builder.Property(x => x.Senha);
+            builder.Property(x => x.Biografia)
+                .IsRequired(false);
+
+            builder.Property(x => x.Email)
+                .IsRequired()
+                .HasColumnName("Email")
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(160);
+
+            builder.Property(x => x.Imagem)
+                .IsRequired(false);
+
+            builder.Property(x => x.Senha).IsRequired()
+                .HasColumnName("Senha")
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(255);
 
             builder.Property(x => x.Slug)
                 .IsRequired()
@@ -48,7 +60,7 @@ namespace Blog.Data.Mappings
                 .WithMany(x => x.Usuarios)
                 .UsingEntity<Dictionary<string, object>>(
                     "UsuarioFuncao",
-                    role => role
+                    funcao => funcao
                         .HasOne<Funcao>()
                         .WithMany()
                         .HasForeignKey("FuncaoId")
