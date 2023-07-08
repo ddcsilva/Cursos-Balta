@@ -11,13 +11,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ListaTarefas.Domain\ListaTarefas.Domain.csproj" />
-    <ProjectReference Include="..\ListaTarefas.Infrastructure\ListaTarefas.Infrastructure.csproj" />
-  </ItemGroup>
-
 </Project>

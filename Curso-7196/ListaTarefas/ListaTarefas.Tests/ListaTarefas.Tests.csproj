@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ListaTarefas.Dominio\ListaTarefas.Dominio.csproj" />
+    <ProjectReference Include="..\ListaTarefas.Domain\ListaTarefas.Domain.csproj" />
   </ItemGroup>
 
 </Project>
