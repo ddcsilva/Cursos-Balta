@@ -4,6 +4,9 @@ using ListaTarefas.Domain.Commands.Contracts;
 
 namespace ListaTarefas.Domain.Commands;
 
+/// <summary>
+/// Comando para marcar uma tarefa como não concluída.
+/// </summary>
 public class MarcarComoNaoConcluida : Notifiable, ICommand
 {
     public MarcarComoNaoConcluida() { }

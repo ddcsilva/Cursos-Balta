@@ -1,5 +1,8 @@
 namespace ListaTarefas.Domain.Entities;
 
+/// <summary>
+/// Classe que representa uma tarefa.
+/// </summary>
 public sealed class Tarefa : Entity
 {
     public Tarefa(string titulo, string usuario, DateTime dataConclusao)

@@ -1,5 +1,8 @@
 namespace ListaTarefas.Domain.Entities;
 
+/// <summary>
+/// Classe base para as entidades.
+/// </summary>
 public abstract class Entity: IEquatable<Entity>
 {
     public Entity()

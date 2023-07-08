@@ -4,6 +4,9 @@ using ListaTarefas.Domain.Commands.Contracts;
 
 namespace ListaTarefas.Domain.Commands;
 
+/// <summary>
+/// Comando para criar uma nova tarefa.
+/// </summary>
 public class CriarTarefaCommand : Notifiable, ICommand
 {
     public CriarTarefaCommand() { }

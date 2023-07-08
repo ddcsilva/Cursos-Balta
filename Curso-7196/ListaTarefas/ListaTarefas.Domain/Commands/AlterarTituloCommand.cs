@@ -4,6 +4,9 @@ using ListaTarefas.Domain.Commands.Contracts;
 
 namespace ListaTarefas.Domain.Commands;
 
+/// <summary>
+/// Comando para alterar o título de uma tarefa.
+/// </summary>
 public class AlterarTituloCommand : Notifiable, ICommand
 {
     public AlterarTituloCommand() { }
