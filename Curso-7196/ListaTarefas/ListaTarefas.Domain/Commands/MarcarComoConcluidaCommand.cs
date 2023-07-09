@@ -7,11 +7,11 @@ namespace ListaTarefas.Domain.Commands;
 /// <summary>
 /// Comando para marcar uma tarefa como concluída.
 /// </summary>
-public class MarcarComoConcluida : Notifiable, ICommand
+public class MarcarComoConcluidaCommand : Notifiable, ICommand
 {
-    public MarcarComoConcluida() { }
+    public MarcarComoConcluidaCommand() { }
 
-    public MarcarComoConcluida(Guid id, string usuario)
+    public MarcarComoConcluidaCommand(Guid id, string usuario)
     {
         Id = id;
         Usuario = usuario;

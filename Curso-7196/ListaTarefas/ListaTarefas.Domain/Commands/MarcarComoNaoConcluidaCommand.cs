@@ -7,11 +7,11 @@ namespace ListaTarefas.Domain.Commands;
 /// <summary>
 /// Comando para marcar uma tarefa como não concluída.
 /// </summary>
-public class MarcarComoNaoConcluida : Notifiable, ICommand
+public class MarcarComoNaoConcluidaCommand : Notifiable, ICommand
 {
-    public MarcarComoNaoConcluida() { }
+    public MarcarComoNaoConcluidaCommand() { }
 
-    public MarcarComoNaoConcluida(Guid id, string usuario)
+    public MarcarComoNaoConcluidaCommand(Guid id, string usuario)
     {
         Id = id;
         Usuario = usuario;

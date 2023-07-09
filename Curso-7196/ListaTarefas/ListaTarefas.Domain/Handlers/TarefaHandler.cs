@@ -10,7 +10,12 @@ namespace ListaTarefas.Domain.Handlers;
 /// <summary>
 /// Classe Handler para criar uma tarefa.
 /// </summary>
-public class TarefaHandler : Notifiable, IHandler<CriarTarefaCommand>, IHandler<AtualizarTarefaCommand>
+public class TarefaHandler : 
+    Notifiable, 
+    IHandler<CriarTarefaCommand>, 
+    IHandler<AtualizarTarefaCommand>,
+    IHandler<MarcarComoConcluidaCommand>,
+    IHandler<MarcarComoNaoConcluidaCommand>
 {
     private readonly ITarefaRepository _repository;
 
@@ -47,5 +52,37 @@ public class TarefaHandler : Notifiable, IHandler<CriarTarefaCommand>, IHandler<
         _repository.Atualizar(tarefa);
 
         return new GenericCommandResult(true, "Tarefa atualizada com sucesso!", tarefa);
+    }
+
+    public ICommandResult Handle(MarcarComoConcluidaCommand command)
+    {
+        command.Validate();
+
+        if (command.Invalid)
+            return new GenericCommandResult(false, "Ops, parece que sua tarefa está errada!", command.Notifications);
+
+        var tarefa = _repository.ObterPorId(command.Id, command.Usuario);
+
+        tarefa.MarcarComoConcluida();
+
+        _repository.Atualizar(tarefa);
+
+        return new GenericCommandResult(true, "Tarefa marcada como concluída!", tarefa);
+    }
+
+    public ICommandResult Handle(MarcarComoNaoConcluidaCommand command)
+    {
+        command.Validate();
+
+        if (command.Invalid)
+            return new GenericCommandResult(false, "Ops, parece que sua tarefa está errada!", command.Notifications);
+
+        var tarefa = _repository.ObterPorId(command.Id, command.Usuario);
+
+        tarefa.MarcarComoNaoConcluida();
+
+        _repository.Atualizar(tarefa);
+
+        return new GenericCommandResult(true, "Tarefa marcada como não concluída!", tarefa);
     }
 }
