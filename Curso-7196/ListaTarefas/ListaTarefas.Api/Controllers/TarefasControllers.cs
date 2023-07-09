@@ -18,14 +18,14 @@ public class TarefasController : ControllerBase
     }
 
     [HttpGet]
-    [Route("")]
+    [Route("concluidas")]
     public IEnumerable<Tarefa> ObterTarefasConcluidas([FromServices] ITarefaRepository repository)
     {
         return repository.ObterTodasTarefasConcluidas("danilo");
     }
 
     [HttpGet]
-    [Route("")]
+    [Route("nao-concluidas")]
     public IEnumerable<Tarefa> ObterTarefasNaoConcluidas([FromServices] ITarefaRepository repository)
     {
         return repository.ObterTodasTarefasNaoConcluidas("danilo");

@@ -10,9 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 // AddControllers: Adiciona os controllers na aplicação.
 builder.Services.AddControllers();
 
+
 // AddDbContext: Adiciona o contexto da aplicação.
 builder.Services.AddDbContext<DataContext>(option => option.UseInMemoryDatabase("Database"));
-// builder.Services.AddDbContext<DataContext>(option => option.UseSqlServer("Server=localhost;Database=ListaTarefas;User Id=sa;Password=123456;"));
+
+// builder.Services.AddDbContext<DataContext>(options =>
+//     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // AddTransient: Adiciona uma instância temporária do tipo informado.
 builder.Services.AddTransient<ITarefaRepository, TarefaRepository>();

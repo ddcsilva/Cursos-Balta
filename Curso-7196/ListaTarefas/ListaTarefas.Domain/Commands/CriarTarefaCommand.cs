@@ -15,7 +15,7 @@ public class CriarTarefaCommand : Notifiable, ICommand
     {
         Titulo = titulo;
         DataConclusao = dataConclusao;
-        Usuario = usuario;
+        Usuario = "danilo";
     }
 
     public string Titulo { get; set; }
