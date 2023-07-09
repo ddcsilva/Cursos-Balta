@@ -14,4 +14,9 @@ public class FakeTarefaRepository : ITarefaRepository
     {
         
     }
+
+    public Tarefa ObterPorId(Guid id, string usuario)
+    {
+        return new Tarefa("Titulo da tarefa", DateTime.Now, "Usuario");
+    }
 }

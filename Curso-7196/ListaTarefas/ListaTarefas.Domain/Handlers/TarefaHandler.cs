@@ -10,7 +10,7 @@ namespace ListaTarefas.Domain.Handlers;
 /// <summary>
 /// Classe Handler para criar uma tarefa.
 /// </summary>
-public class TarefaHandler : Notifiable, IHandler<CriarTarefaCommand>
+public class TarefaHandler : Notifiable, IHandler<CriarTarefaCommand>, IHandler<AtualizarTarefaCommand>
 {
     private readonly ITarefaRepository _repository;
 
@@ -31,5 +31,21 @@ public class TarefaHandler : Notifiable, IHandler<CriarTarefaCommand>
         _repository.Criar(tarefa);
 
         return new GenericCommandResult(true, "Tarefa salva com sucesso!", tarefa);
+    }
+
+    public ICommandResult Handle(AtualizarTarefaCommand command)
+    {
+        command.Validate();
+
+        if (command.Invalid)
+            return new GenericCommandResult(false, "Ops, parece que sua tarefa está errada!", command.Notifications);
+
+        var tarefa = _repository.ObterPorId(command.Id, command.Usuario);
+
+        tarefa.AlterarTitulo(command.Titulo);
+
+        _repository.Atualizar(tarefa);
+
+        return new GenericCommandResult(true, "Tarefa atualizada com sucesso!", tarefa);
     }
 }

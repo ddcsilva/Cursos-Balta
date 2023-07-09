@@ -9,4 +9,6 @@ public interface ITarefaRepository
 {
     void Criar(Tarefa tarefa);
     void Atualizar(Tarefa tarefa);
+
+    Tarefa ObterPorId(Guid id, string usuario);
 }
