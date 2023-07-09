@@ -5,7 +5,7 @@ namespace ListaTarefas.Domain.Entities;
 /// </summary>
 public sealed class Tarefa : Entity
 {
-    public Tarefa(string titulo, string usuario, DateTime dataConclusao)
+    public Tarefa(string titulo, DateTime dataConclusao, string usuario)
     {
         Titulo = titulo;
         Concluida = false;
@@ -13,10 +13,10 @@ public sealed class Tarefa : Entity
         Usuario = usuario;
     }
 
-    public string? Titulo { get; private set; }
+    public string Titulo { get; private set; }
     public bool Concluida { get; private set; }
     public DateTime DataConclusao { get; private set; }
-    public string? Usuario { get; private set; }
+    public string Usuario { get; private set; }
 
     public void MarcarComoConcluida()
     {

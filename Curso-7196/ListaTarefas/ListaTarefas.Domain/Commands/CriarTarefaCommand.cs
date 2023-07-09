@@ -18,9 +18,9 @@ public class CriarTarefaCommand : Notifiable, ICommand
         Usuario = usuario;
     }
 
-    public string? Titulo { get; set; }
+    public string Titulo { get; set; }
     public DateTime DataConclusao { get; set; }
-    public string? Usuario { get; set; }
+    public string Usuario { get; set; }
 
     public void Validate()
     {

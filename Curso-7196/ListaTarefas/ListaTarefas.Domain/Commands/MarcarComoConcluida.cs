@@ -18,7 +18,7 @@ public class MarcarComoConcluida : Notifiable, ICommand
     }
 
     public Guid Id { get; set; }
-    public string? Usuario { get; set; }
+    public string Usuario { get; set; }
 
     public void Validate()
     {
