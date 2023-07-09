@@ -11,4 +11,8 @@ public interface ITarefaRepository
     void Atualizar(Tarefa tarefa);
 
     Tarefa ObterPorId(Guid id, string usuario);
+    IEnumerable<Tarefa> ObterTodasTarefas(string usuario);
+    IEnumerable<Tarefa> ObterTodasTarefasConcluidas(string usuario);
+    IEnumerable<Tarefa> ObterTodasTarefasNaoConcluidas(string usuario);
+    IEnumerable<Tarefa> ObterPorPeriodo(string usuario, DateTime dataConclusao, bool concluida);
 }

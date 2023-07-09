@@ -5,6 +5,11 @@ namespace ListaTarefas.Domain.Queries;
 
 public class TarefaQueries
 {
+    public static Expression<Func<Tarefa, bool>> ObterPorId(Guid id, string usuario)
+    {
+        return tarefa => tarefa.Id == id && tarefa.Usuario == usuario;
+    }
+
     public static Expression<Func<Tarefa, bool>> ObterTodasTarefas(string usuario)
     {
         return tarefa => tarefa.Usuario == usuario;
