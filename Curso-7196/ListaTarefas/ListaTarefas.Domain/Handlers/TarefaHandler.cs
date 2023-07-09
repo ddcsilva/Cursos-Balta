@@ -2,9 +2,10 @@ using Flunt.Notifications;
 using ListaTarefas.Domain.Commands;
 using ListaTarefas.Domain.Commands.Contracts;
 using ListaTarefas.Domain.Entities;
+using ListaTarefas.Domain.Handlers.Contracts;
 using ListaTarefas.Domain.Repositories;
 
-namespace ListaTarefas.Domain.Handlers.Contracts;
+namespace ListaTarefas.Domain.Handlers;
 
 /// <summary>
 /// Classe Handler para criar uma tarefa.
