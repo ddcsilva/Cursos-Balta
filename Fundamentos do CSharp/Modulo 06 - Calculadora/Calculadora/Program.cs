@@ -13,6 +13,16 @@ static void Menu()
     Console.WriteLine("-----------------------------");
 
     short opcao = short.Parse(Console.ReadLine());
+
+    switch (opcao)
+    {
+        case 1: Soma(); break;
+        case 2: Subtracao(); break;
+        case 3: Divisao(); break;
+        case 4: Multiplicacao(); break;
+        case 0: Environment.Exit(0); break;
+        default: Menu(); break;
+    }
 }
 
 static void Soma()
@@ -28,6 +38,8 @@ static void Soma()
     float resultado = primeiroValor + segundoValor;
     Console.WriteLine($"O resultado da soma é: {resultado}");
     Console.ReadKey();
+
+    Menu();
 }
 
 static void Subtracao()
@@ -43,6 +55,8 @@ static void Subtracao()
     float resultado = primeiroValor - segundoValor;
     Console.WriteLine($"O resultado da subtração é: {resultado}");
     Console.ReadKey();
+
+    Menu();
 }
 
 static void Divisao()
@@ -58,6 +72,8 @@ static void Divisao()
     float resultado = primeiroValor / segundoValor;
     Console.WriteLine($"O resultado da divisão é: {resultado}");
     Console.ReadKey();
+
+    Menu();
 }
 
 static void Multiplicacao()
@@ -73,4 +89,6 @@ static void Multiplicacao()
     float resultado = primeiroValor * segundoValor;
     Console.WriteLine($"O resultado da multiplicação é: {resultado}");
     Console.ReadKey();
+
+    Menu();
 }
