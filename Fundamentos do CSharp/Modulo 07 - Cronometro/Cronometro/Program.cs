@@ -4,10 +4,13 @@ static void Menu()
 {
     Console.Clear();
 
-    Console.WriteLine("S - Segundo");
-    Console.WriteLine("M - Minuto");
+    Console.WriteLine("S - Segundo (Exemplo: 10s)");
+    Console.WriteLine("M - Minuto (Exemplo: 1m)");
     Console.WriteLine("0 - Sair");
     Console.WriteLine("Quanto tempo deseja contar? ");
+
+    string opcao = Console.ReadLine().ToLower();
+    char tipo = char.Parse(opcao.Substring(opcao.Length - 1, 1));
 }
 
 /// <summary>
