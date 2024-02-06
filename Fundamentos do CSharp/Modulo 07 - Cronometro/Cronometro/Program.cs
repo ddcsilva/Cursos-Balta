@@ -10,8 +10,17 @@ static void Menu()
     Console.WriteLine("Quanto tempo deseja contar? ");
 
     string opcao = Console.ReadLine().ToLower();
-    char tipo = char.Parse(opcao.Substring(opcao.Length - 1, 1));
-    int tempo = int.Parse(opcao.Substring(0, opcao.Length - 1));
+    char tipo = char.Parse(opcao.Substring(opcao.Length - 1, 1)); // Pega o último caractere
+    int tempo = int.Parse(opcao.Substring(0, opcao.Length - 1)); // Pega todos os caracteres, menos o último
+    int multiplicador = 1; // Por padrão, é segundo
+
+    if (tipo == 'm')
+        multiplicador = 60; // Se for minuto, multiplica por 60
+
+    if (tempo == 0)
+        Environment.Exit(0); // Fecha a aplicação
+
+    IniciarContador(tempo * multiplicador);
 }
 
 /// <summary>
