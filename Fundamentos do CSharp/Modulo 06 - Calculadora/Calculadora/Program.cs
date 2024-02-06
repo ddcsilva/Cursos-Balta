@@ -1,12 +1,17 @@
 ﻿Console.Clear();
 
-Console.WriteLine("Primeiro Valor: ");
-float primeiroValor = float.Parse(Console.ReadLine());
+Soma();
 
-Console.WriteLine("Segundo Valor: ");
-float segundoValor = float.Parse(Console.ReadLine());
+static void Soma()
+{
+    Console.WriteLine("Primeiro Valor: ");
+    float primeiroValor = float.Parse(Console.ReadLine());
 
-Console.WriteLine("");
+    Console.WriteLine("Segundo Valor: ");
+    float segundoValor = float.Parse(Console.ReadLine());
 
-float resultado = primeiroValor + segundoValor;
-Console.WriteLine($"O resultado da soma é: {resultado}");
+    Console.WriteLine("");
+
+    float resultado = primeiroValor + segundoValor;
+    Console.WriteLine($"O resultado da soma é: {resultado}");
+}
