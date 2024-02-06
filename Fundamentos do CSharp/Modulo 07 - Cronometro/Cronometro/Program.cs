@@ -11,6 +11,7 @@ static void Menu()
 
     string opcao = Console.ReadLine().ToLower();
     char tipo = char.Parse(opcao.Substring(opcao.Length - 1, 1));
+    int tempo = int.Parse(opcao.Substring(0, opcao.Length - 1));
 }
 
 /// <summary>
