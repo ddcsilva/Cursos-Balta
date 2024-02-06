@@ -20,7 +20,20 @@ static void Menu()
     if (tempo == 0)
         Environment.Exit(0); // Fecha a aplicação
 
-    IniciarContador(tempo * multiplicador);
+    PreContador(tempo * multiplicador);
+}
+
+static void PreContador(int tempo)
+{
+    Console.Clear();
+    Console.WriteLine("Preparar...");
+    Thread.Sleep(1000);
+    Console.WriteLine("Apontar...");
+    Thread.Sleep(1000);
+    Console.WriteLine("Vai!");
+    Thread.Sleep(1000);
+
+    IniciarContador(tempo);
 }
 
 /// <summary>
@@ -35,7 +48,7 @@ static void IniciarContador(int tempo)
         Console.Clear();
 
         tempoAtual++;
-        Console.WriteLine("Tempo atual: " + tempoAtual);
+        Console.WriteLine(tempoAtual);
 
         Thread.Sleep(1000); // Aguarda 1 segundo
     }
