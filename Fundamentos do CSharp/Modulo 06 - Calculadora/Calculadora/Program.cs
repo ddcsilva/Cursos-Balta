@@ -1,9 +1,19 @@
-﻿Console.Clear();
+﻿Menu();
 
-//Soma();
-//Subtracao();
-//Divisao();
-Multiplicacao();
+static void Menu()
+{
+    Console.Clear();
+
+    Console.WriteLine("Escolha uma das opções abaixo: ");
+    Console.WriteLine("1 - Soma");
+    Console.WriteLine("2 - Subtração");
+    Console.WriteLine("3 - Divisão");
+    Console.WriteLine("4 - Multiplicação");
+    Console.WriteLine("0 - Sair");
+    Console.WriteLine("-----------------------------");
+
+    short opcao = short.Parse(Console.ReadLine());
+}
 
 static void Soma()
 {
