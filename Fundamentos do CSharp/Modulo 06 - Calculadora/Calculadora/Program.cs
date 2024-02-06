@@ -2,7 +2,8 @@
 
 //Soma();
 //Subtracao();
-Divisao();
+//Divisao();
+Multiplicacao();
 
 static void Soma()
 {
@@ -46,5 +47,20 @@ static void Divisao()
 
     float resultado = primeiroValor / segundoValor;
     Console.WriteLine($"O resultado da divisão é: {resultado}");
+    Console.ReadKey();
+}
+
+static void Multiplicacao()
+{
+    Console.WriteLine("Primeiro Valor: ");
+    float primeiroValor = float.Parse(Console.ReadLine());
+
+    Console.WriteLine("Segundo Valor: ");
+    float segundoValor = float.Parse(Console.ReadLine());
+
+    Console.WriteLine("");
+
+    float resultado = primeiroValor * segundoValor;
+    Console.WriteLine($"O resultado da multiplicação é: {resultado}");
     Console.ReadKey();
 }
