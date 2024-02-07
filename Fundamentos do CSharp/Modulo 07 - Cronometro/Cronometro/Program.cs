@@ -1,5 +1,8 @@
 ﻿Menu();
 
+/// <summary>
+/// Mostra o menu.
+/// </summary>
 static void Menu()
 {
     Console.Clear();
@@ -9,20 +12,48 @@ static void Menu()
     Console.WriteLine("0 - Sair");
     Console.WriteLine("Quanto tempo deseja contar? ");
 
-    string opcao = Console.ReadLine().ToLower();
-    char tipo = char.Parse(opcao.Substring(opcao.Length - 1, 1)); // Pega o último caractere
-    int tempo = int.Parse(opcao.Substring(0, opcao.Length - 1)); // Pega todos os caracteres, menos o último
-    int multiplicador = 1; // Por padrão, é segundo
+    string opcao = Console.ReadLine()?.ToLower() ?? string.Empty;
 
-    if (tipo == 'm')
-        multiplicador = 60; // Se for minuto, multiplica por 60
-
-    if (tempo == 0)
+    if (opcao == "0")
+    {
         Environment.Exit(0); // Fecha a aplicação
+    }
+
+    if (opcao.Length < 2)
+    {
+        Console.WriteLine("Formato inválido, tente novamente.");
+        Thread.Sleep(2000);
+        Menu();
+        return;
+    }
+
+    char tipo = opcao[opcao.Length - 1]; // Pega o último caractere
+    int tempo;
+
+    if (tipo != 's' && tipo != 'm') // Verifica se o último caractere é 's' ou 'm'
+    {
+        Console.WriteLine("Formato inválido, tente novamente.");
+        Thread.Sleep(2000);
+        Menu();
+        return;
+    }
+
+    if (!int.TryParse(opcao.Substring(0, opcao.Length - 1), out tempo)) // Tenta converter todos os caracteres, menos o último
+    {
+        Console.WriteLine("Formato inválido, tente novamente.");
+        Thread.Sleep(2000);
+        Menu();
+        return;
+    }
+
+    int multiplicador = tipo == 'm' ? 60 : 1; // Multiplica por 60 se for minuto
 
     PreContador(tempo * multiplicador);
 }
 
+/// <summary>
+/// Prepara o contador.
+/// </summary>
 static void PreContador(int tempo)
 {
     Console.Clear();
@@ -56,4 +87,5 @@ static void IniciarContador(int tempo)
     Console.Clear();
     Console.WriteLine("Contador finalizado!");
     Thread.Sleep(2000); // Aguarda 2 segundos
+    Menu();
 }
