@@ -1,4 +1,6 @@
-﻿namespace Loja.Domain.Entities;
+﻿using Flunt.Validations;
+
+namespace Loja.Domain.Entities;
 
 /// <summary>
 /// Entidade que representa um item do pedido
@@ -10,6 +12,13 @@ public class ItemPedido : BaseEntity
     /// </summary>
     public ItemPedido(Produto produto, int quantidade)
     {
+        AddNotifications(
+            new Contract()
+                .Requires()
+                .IsNotNull(produto, "Produto", "Produto é obrigatório")
+                .IsGreaterThan(quantidade, 0, "Quantidade", "Quantidade deve ser maior que zero")
+        );
+
         Produto = produto;
         Quantidade = quantidade;
         Preco = Produto != null ? Produto.Preco : 0;

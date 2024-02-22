@@ -1,9 +1,11 @@
+using Flunt.Notifications;
+
 namespace Loja.Domain.Entities;
 
 /// <summary>
 /// Classe base para as entidades
 /// </summary>
-public class BaseEntity
+public class BaseEntity : Notifiable
 {
     /// <summary>
     /// Construtor que inicializa a propriedade Id com um novo Guid

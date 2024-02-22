@@ -1,4 +1,5 @@
-﻿using Loja.Domain.Enums;
+﻿using Flunt.Validations;
+using Loja.Domain.Enums;
 
 namespace Loja.Domain.Entities;
 
@@ -12,6 +13,13 @@ public class Pedido : BaseEntity
     /// </summary>
     public Pedido(Cliente cliente, decimal frete, CupomDesconto cupomDesconto)
     {
+        AddNotifications(
+            new Contract()
+                .Requires()
+                .IsNotNull(cliente, "Cliente", "Cliente é obrigatório")
+                .IsGreaterThan(frete, 0, "Frete", "Frete deve ser maior que zero")
+        );
+
         Cliente = cliente;
         Data = DateTime.Now;
         Numero = Guid.NewGuid().ToString().Substring(0, 8).ToUpper();
@@ -37,7 +45,8 @@ public class Pedido : BaseEntity
     public void AdicionarItem(Produto produto, int quantidade)
     {
         var item = new ItemPedido(produto, quantidade);
-        Itens.Add(item);
+        if (item.Valid)
+            Itens.Add(item);
     }
 
     /// <summary>
