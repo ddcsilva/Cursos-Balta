@@ -12,7 +12,7 @@ public class BlogDataContext : DbContext
 
     // Método para configurar o banco de dados
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlServer("Server=localhost,1433;Database=Blog;User ID=sa;Password=0nd3m@nd");
+        => options.UseSqlServer("Server=localhost,1433;Database=Blog;User ID=sa;Password=0nd3m@nd;TrustServerCertificate=True");
 
     // Método para mapear as entidades
     protected override void OnModelCreating(ModelBuilder modelBuilder)
