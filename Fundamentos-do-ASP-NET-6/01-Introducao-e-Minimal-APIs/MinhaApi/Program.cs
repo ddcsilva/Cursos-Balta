@@ -1,19 +1,27 @@
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args); // Vamos criar uma aplicação Web
+var app = builder.Build(); // Vamos contruir a aplicação Web
 
-// Configurações do Kestrel para ouvir em HTTP e HTTPS
-builder.WebHost.ConfigureKestrel(options =>
+app.MapGet("/", () =>
 {
-    options.ListenLocalhost(5273); // Porta HTTP
-    options.ListenLocalhost(7232, listenOptions =>
-    {
-        listenOptions.UseHttps(); // Porta HTTPS
-    });
+    return Results.Ok("Hello World!");
 });
 
-var app = builder.Build();
+app.MapGet("/name/{nome}", (string nome) =>
+{
+    return Results.Ok($"Hello {nome}");
+});
 
-app.UseHttpsRedirection();
+app.MapGet("/banana", () => "Banana é muito bom!");
 
-app.MapGet("/", () => "Hello World!");
+app.MapPost("/", (User user) =>
+{
+    return Results.Ok(user);
+});
 
-app.Run();
+app.Run(); // Vamos colocar pra executar
+
+public class User
+{
+    public int Id { get; set; }
+    public string Username { get; set; }
+}
