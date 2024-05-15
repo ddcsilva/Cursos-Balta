@@ -6,7 +6,7 @@ namespace Blog.Controllers;
 [ApiController]
 public class CategoriasController : ControllerBase
 {
-    [HttpGet("categorias")]
+    [HttpGet("v1/categorias")]
     public IActionResult ObterCategorias([FromServices] BlogDataContext context)
     {
         var categorias = context.Categorias.ToList();
