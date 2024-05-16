@@ -1,5 +1,6 @@
 using System.Data.Common;
 using Blog.Data;
+using Blog.Extensions;
 using Blog.Models;
 using Blog.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -31,23 +32,20 @@ public class CategoriasController : ControllerBase
         {
             var categoria = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
 
-            if (categoria == null) return NotFound();
+            if (categoria == null) return NotFound(new RetornoViewModel<Categoria>([$"Categoria com id {id} não encontrada."]));
 
-            return Ok(categoria);
+            return Ok(new RetornoViewModel<Categoria>(categoria));
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            return StatusCode(500, new { mensagem = $"Erro interno: {ex.Message}" });
+            return StatusCode(500, new RetornoViewModel<string>([$"Falha interna no servidor."]));
         }
     }
 
     [HttpPost("v1/categorias")]
     public async Task<IActionResult> AdicionarCategoriaAsync([FromBody] EdicaoCategoriaViewModel categoriaViewModel, [FromServices] BlogDataContext context)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest();
-        }
+        if (!ModelState.IsValid) return BadRequest(new RetornoViewModel<Categoria>(ModelState.ObterErros()));
 
         try
         {
