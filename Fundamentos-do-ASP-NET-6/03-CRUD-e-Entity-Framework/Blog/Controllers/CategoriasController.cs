@@ -1,3 +1,4 @@
+using System.Data.Common;
 using Blog.Data;
 using Blog.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -11,55 +12,101 @@ public class CategoriasController : ControllerBase
     [HttpGet("v1/categorias")]
     public async Task<IActionResult> ObterCategoriasAsync([FromServices] BlogDataContext context)
     {
-        var categorias = await context.Categorias.ToListAsync();
-        return Ok(categorias);
+        try
+        {
+            var categorias = await context.Categorias.ToListAsync();
+            return Ok(categorias);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { mensagem = $"Erro interno: {ex.Message}" });
+        }
     }
 
     [HttpGet("v1/categorias/{id:int}")]
     public async Task<IActionResult> ObterCategoriaPorIdAsync([FromRoute] int id, [FromServices] BlogDataContext context)
     {
-        var categoria = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
+        try
+        {
+            var categoria = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
 
-        if (categoria == null) return NotFound();
+            if (categoria == null) return NotFound();
 
-        return Ok(categoria);
+            return Ok(categoria);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { mensagem = $"Erro interno: {ex.Message}" });
+        }
     }
 
     [HttpPost("v1/categorias")]
     public async Task<IActionResult> AdicionarCategoriaAsync([FromBody] Categoria categoria, [FromServices] BlogDataContext context)
     {
-        await context.Categorias.AddAsync(categoria);
-        await context.SaveChangesAsync();
+        try
+        {
+            await context.Categorias.AddAsync(categoria);
+            await context.SaveChangesAsync();
 
-        return CreatedAtAction($"v1/categorias/{categoria.Id}", categoria);
+            return Created($"v1/categorias/{categoria.Id}", categoria);
+        }
+        catch (DbException ex)
+        {
+            return StatusCode(400, new { mensagem = $"Erro ao inserir categoria: {ex.Message}" });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { mensagem = $"Erro interno: {ex.Message}" });
+        }
     }
 
     [HttpPut("v1/categorias/{id:int}")]
     public async Task<IActionResult> AtualizarCategoriaAsync([FromRoute] int id, [FromBody] Categoria categoria, [FromServices] BlogDataContext context)
     {
-        var categoriaExistente = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
+        try
+        {
+            var categoriaAtual = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
 
-        if (categoriaExistente == null) return NotFound();
+            if (categoriaAtual == null) return NotFound();
 
-        categoriaExistente.Nome = categoria.Nome;
-        categoriaExistente.Slug = categoria.Slug;
+            categoriaAtual.Nome = categoria.Nome;
 
-        context.Categorias.Update(categoriaExistente);
-        await context.SaveChangesAsync();
+            context.Categorias.Update(categoriaAtual);
+            await context.SaveChangesAsync();
 
-        return Ok(categoria);
+            return Ok(categoriaAtual);
+        }
+        catch (DbException ex)
+        {
+            return StatusCode(400, new { mensagem = $"Erro ao atualizar categoria: {ex.Message}" });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { mensagem = $"Erro interno: {ex.Message}" });
+        }
     }
 
     [HttpDelete("v1/categorias/{id:int}")]
     public async Task<IActionResult> RemoverCategoriaAsync([FromRoute] int id, [FromServices] BlogDataContext context)
     {
-        var categoria = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
+        try
+        {
+            var categoria = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
 
-        if (categoria == null) return NotFound();
+            if (categoria == null) return NotFound();
 
-        context.Categorias.Remove(categoria);
-        await context.SaveChangesAsync();
+            context.Categorias.Remove(categoria);
+            await context.SaveChangesAsync();
 
-        return Ok(categoria);
+            return NoContent();
+        }
+        catch (DbException ex)
+        {
+            return StatusCode(400, new { mensagem = $"Erro ao remover categoria: {ex.Message}" });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { mensagem = $"Erro interno: {ex.Message}" });
+        }
     }
 }
