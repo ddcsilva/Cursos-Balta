@@ -1,6 +1,7 @@
 using System.Data.Common;
 using Blog.Data;
 using Blog.Models;
+using Blog.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,10 +42,16 @@ public class CategoriasController : ControllerBase
     }
 
     [HttpPost("v1/categorias")]
-    public async Task<IActionResult> AdicionarCategoriaAsync([FromBody] Categoria categoria, [FromServices] BlogDataContext context)
+    public async Task<IActionResult> AdicionarCategoriaAsync([FromBody] EdicaoCategoriaViewModel categoriaViewModel, [FromServices] BlogDataContext context)
     {
         try
         {
+            var categoria = new Categoria
+            {
+                Nome = categoriaViewModel.Nome,
+                Slug = categoriaViewModel.Slug
+            };
+
             await context.Categorias.AddAsync(categoria);
             await context.SaveChangesAsync();
 
@@ -61,7 +68,7 @@ public class CategoriasController : ControllerBase
     }
 
     [HttpPut("v1/categorias/{id:int}")]
-    public async Task<IActionResult> AtualizarCategoriaAsync([FromRoute] int id, [FromBody] Categoria categoria, [FromServices] BlogDataContext context)
+    public async Task<IActionResult> AtualizarCategoriaAsync([FromRoute] int id, [FromBody] EdicaoCategoriaViewModel categoriaViewModel, [FromServices] BlogDataContext context)
     {
         try
         {
@@ -69,7 +76,8 @@ public class CategoriasController : ControllerBase
 
             if (categoriaAtual == null) return NotFound();
 
-            categoriaAtual.Nome = categoria.Nome;
+            categoriaAtual.Nome = categoriaViewModel.Nome;
+            categoriaAtual.Slug = categoriaViewModel.Slug;
 
             context.Categorias.Update(categoriaAtual);
             await context.SaveChangesAsync();
