@@ -52,21 +52,21 @@ public class CategoriasController : ControllerBase
             var categoria = new Categoria
             {
                 Nome = categoriaViewModel.Nome,
-                Slug = categoriaViewModel.Slug
+                Slug = categoriaViewModel.Slug.ToLower()
             };
 
             await context.Categorias.AddAsync(categoria);
             await context.SaveChangesAsync();
 
-            return Created($"v1/categorias/{categoria.Id}", categoria);
+            return Created($"v1/categorias/{categoria.Id}", new RetornoViewModel<Categoria>(categoria));
         }
-        catch (DbException ex)
+        catch (DbException)
         {
-            return StatusCode(400, new { mensagem = $"Erro ao inserir categoria: {ex.Message}" });
+            return StatusCode(400, new RetornoViewModel<string>([$"Erro ao adicionar categoria."]));
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            return StatusCode(500, new { mensagem = $"Erro interno: {ex.Message}" });
+            return StatusCode(500, new RetornoViewModel<string>([$"Falha interna no servidor."]));
         }
     }
 
@@ -77,7 +77,7 @@ public class CategoriasController : ControllerBase
         {
             var categoriaAtual = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
 
-            if (categoriaAtual == null) return NotFound();
+            if (categoriaAtual == null) return NotFound(new RetornoViewModel<Categoria>([$"Categoria com id {id} não encontrada."]));
 
             categoriaAtual.Nome = categoriaViewModel.Nome;
             categoriaAtual.Slug = categoriaViewModel.Slug;
@@ -85,15 +85,15 @@ public class CategoriasController : ControllerBase
             context.Categorias.Update(categoriaAtual);
             await context.SaveChangesAsync();
 
-            return Ok(categoriaAtual);
+            return Ok(new RetornoViewModel<Categoria>(categoriaAtual));
         }
-        catch (DbException ex)
+        catch (DbException)
         {
-            return StatusCode(400, new { mensagem = $"Erro ao atualizar categoria: {ex.Message}" });
+            return StatusCode(400, new RetornoViewModel<string>([$"Erro ao atualizar categoria."]));
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            return StatusCode(500, new { mensagem = $"Erro interno: {ex.Message}" });
+            return StatusCode(500, new RetornoViewModel<string>([$"Falha interna no servidor."]));
         }
     }
 
@@ -104,20 +104,20 @@ public class CategoriasController : ControllerBase
         {
             var categoria = await context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
 
-            if (categoria == null) return NotFound();
+            if (categoria == null) return NotFound(new RetornoViewModel<Categoria>([$"Categoria com id {id} não encontrada."]));
 
             context.Categorias.Remove(categoria);
             await context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(new RetornoViewModel<Categoria>(categoria));
         }
-        catch (DbException ex)
+        catch (DbException)
         {
-            return StatusCode(400, new { mensagem = $"Erro ao remover categoria: {ex.Message}" });
+            return StatusCode(400, new RetornoViewModel<string>([$"Erro ao remover categoria."]));
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            return StatusCode(500, new { mensagem = $"Erro interno: {ex.Message}" });
+            return StatusCode(500, new RetornoViewModel<string>([$"Falha interna no servidor."]));
         }
     }
 }
