@@ -16,11 +16,11 @@ public class CategoriasController : ControllerBase
         try
         {
             var categorias = await context.Categorias.ToListAsync();
-            return Ok(categorias);
+            return Ok(new RetornoViewModel<List<Categoria>>(categorias));
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            return StatusCode(500, new { mensagem = $"Erro interno: {ex.Message}" });
+            return StatusCode(500, new RetornoViewModel<string>([$"Falha interna no servidor."]));
         }
     }
 
@@ -44,6 +44,11 @@ public class CategoriasController : ControllerBase
     [HttpPost("v1/categorias")]
     public async Task<IActionResult> AdicionarCategoriaAsync([FromBody] EdicaoCategoriaViewModel categoriaViewModel, [FromServices] BlogDataContext context)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
         try
         {
             var categoria = new Categoria
